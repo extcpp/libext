@@ -20,8 +20,8 @@ constexpr inline T lsb(T number) {
         return (number & -number);
     } else {
         using siged_type = std::make_signed_t<T>;
-        siged_type signed_number = convert_checked<siged_type>(number);
-        siged_type result = (signed_number & -signed_number);
+        siged_type const signed_number = convert_checked<siged_type>(number);
+        siged_type const result = (signed_number & -signed_number);
         return convert_checked<T>(result);
     }
 }

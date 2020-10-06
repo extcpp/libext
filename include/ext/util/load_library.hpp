@@ -55,7 +55,7 @@ dl_handle dl_open(const_utf8_e_str filename, int flag = RTLD_LAZY) {
     return ::dlopen(filename, flag);
 #elif EXT_WINDOWS
     #ifdef UNICODE
-    std::wstring tmp = string_to_win(filename);
+    std::wstring const tmp = string_to_win(filename);
     return ::LoadLibrary(tmp.c_str());
     #else
     return ::LoadLibrary(filename);
@@ -76,7 +76,7 @@ dl_handle dl_open(const std::string& filename, int flag = RTLD_LAZY) {
 std::string dl_error(void) {
 #ifdef EXT_UNIX
     // returns a static buffer - do not free!!!!
-    char* buffer = ::dlerror();
+    char const* buffer = ::dlerror();
     if (buffer) {
         return std::string(buffer);
     } else {
@@ -98,7 +98,7 @@ std::string dl_error(void) {
     #else
     std::string rv(lpMsgBuf);
     #endif // UNICODE
-        ::LocalFree(lpMsgBuf);
+    ::LocalFree(lpMsgBuf);
     return rv;
 #endif     // EXT_UNIX
 }
