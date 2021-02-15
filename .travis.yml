@@ -102,10 +102,13 @@ matrix:
           #                       cov-configure --comptype gcc --compiler /usr/bin/g++-7 -- -std=gnu++1z
           #                       cmake -DCMAKE_BUILD_TYPE=Debug -DLIBEXT_TESTS=ON -DLIBEXT_EXAMPLES=ON .
           #build_command: "cmake --build . --config Debug"
+          ## build_command_prepend: |
+          ##                        cov-configure --template --comptype g++ --compiler /usr/bin/g++-7 -- -std=gnu++1z
+          ##                        cmake -DCMAKE_BUILD_TYPE=Debug -DLIBEXT_TESTS=ON -DLIBEXT_EXAMPLES=ON .
+          ## build_command:  cov-configure --template --comptype g++ --compiler /usr/bin/g++-7 -- cmake --build . --config Debug
           build_command_prepend: |
-                                 cov-configure --comptype g++ --compiler /usr/bin/g++-7 -- -std=gnu++1z
-                                 cmake -DCMAKE_BUILD_TYPE=Debug -DLIBEXT_TESTS=ON -DLIBEXT_EXAMPLES=ON .
-          build_command: "cmake --build . --config Debug"
+                                 cov-configure --gcc -- cmake -DCMAKE_BUILD_TYPE=Debug -DLIBEXT_TESTS=ON -DLIBEXT_EXAMPLES=ON .
+          build_command:  cov-configure --gcc -- cmake --build . --config Debug
           branch_pattern: coverity_scan
       before_script:
         # fix for coverity scans
