@@ -8,6 +8,8 @@ message(STATUS "extINFO -- entering ext-basics")
 option(LIBEXT_EXAMPLES "build examples" OFF)
 option(LIBEXT_WARNINGS "enable warnings" ON)
 option(LIBEXT_CHECKED  "user assert" ON)
+option(EXT_DEFER_NON_NOTROW "allow throwing functions in defer" OFF)
+option(EXT_DEFER_MOVE_ASSIGN "allow move assignment of defer object" OFF)
 
 option(LIBEXT_TESTS "build tests" OFF)
 option(LIBEXT_TESTS_NO_TIME_CRITICAL "no time critical tests" OFF)
@@ -52,9 +54,11 @@ set(ext_common_compile_definitions
     $<IF:$<BOOL:${ext_is_big_endian}>,EXT_BIG_ENDIAN,EXT_LITTLE_ENDIAN>
     $<$<BOOL:${EXT_CXX_COMPILER_IS_GCC}>:EXT_GCC>
     $<$<BOOL:${EXT_CXX_COMPILER_IS_CLANG}>:EXT_CLANG>
-    $<$<BOOL:${ext_l1_cache_line_size}>:EXT_KNOWN_L1_CACHE_LINE_SIZE=${ext_l1_cache_line_size}>
     $<$<BOOL:${LIBEXT_CHECKED}>:EXT_CHECKED=1>
     $<$<BOOL:${LIBEXT_TESTS_NO_TIME_CRITICAL}>:EXT_TESTS_NO_TIME_CRITICAL=1>
+    $<$<BOOL:${EXT_DEFER_NON_NOTROW}>:EXT_DEFER_ALLOW_NON_NOTHROW_INVOCABLE=1>
+    $<$<BOOL:${EXT_DEFER_MOVE_ASSIGN}>:EXT_DEFER_ENABLE_MOVE_ASSIGN=1>
+    $<$<BOOL:${ext_l1_cache_line_size}>:EXT_KNOWN_L1_CACHE_LINE_SIZE=${ext_l1_cache_line_size}>
 )
 
 find_package(Threads REQUIRED)

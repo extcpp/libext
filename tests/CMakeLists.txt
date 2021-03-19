@@ -10,6 +10,8 @@ set(test-files
 
     "util_basic"
     "util_cast"
+    "util_defer"
+    "util_defer_may_throw"
     "util_endian"
     "util_enum"
     "util_enum_operations"
